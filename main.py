@@ -19,7 +19,7 @@ class Cake(pg.sprite.Sprite):
    def __init__(self):
        super().__init__()
        
-       self.image = pg.image.load("cake catcher/images/red.png")
+       self.image = pg.image.load("Pygame-Project-2024/images/red.png")
        
        self.rect = self.image.get_rect()
 
@@ -58,7 +58,7 @@ def main():
     done = False
     clock = pg.time.Clock()
 
-    background = pg.image.load("cake catcher/images/oven.webp")
+    background = pg.image.load("Pygame-Project-2024/images/oven.webp")
     background = pg.transform.scale(background, (WIDTH, HEIGHT))
 
     cake_sprites = pg.sprite.Group()
