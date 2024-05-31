@@ -9,4 +9,4 @@ Run 'python main.py' to start the game
 ### Features 
 ### Known Bugs 
 
-## Attribution 
+### Attribution 
