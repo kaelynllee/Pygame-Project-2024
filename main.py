@@ -15,7 +15,8 @@ SCREEN_SIZE = (WIDTH, HEIGHT)
 
 NUM_CAKE = 15
 
-input("Press enter to continue...")
+cake_cooldown = 500 #milliseconds
+
 class Cake(pg.sprite.Sprite):
     def __init__(self):
        super().__init__()
@@ -54,6 +55,7 @@ class Sound(pg.sprite.Sprite):
         super().__init__()
         self.sound = pg.mixer.Sound("Pygame-Project-2024/sounds/happy.mp3")
         self.sound.play()
+
 def main():
     start()
     size = (WIDTH, HEIGHT)
@@ -86,6 +88,29 @@ def main():
 
     tray_sprites.add(tray)
 
+    last_cake = pg.time.get_ticks()
+
+    eating_sound = pg.mixer.Sound("Pygame-Project-2024/sounds/eat.mp3")
+
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                done = True
+
+        if pg.key.get_pressed()[pg.K_SPACE]:
+            break
+
+        screen.blit(background, (0, 0))
+
+        start_text = font.render("Press Space to start.", True, WHITE)
+
+        screen.blit(start_text, (100, 200))
+        
+        pg.display.flip()
+        clock.tick(60)
+
+
+
     while not done:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -109,7 +134,6 @@ def main():
 
         tray_collided = pg.sprite.spritecollide(tray, cake_sprites, True)
         
-        eating_sound = pg.mixer.Sound("Pygame-Project-2024/sounds/eat.mp3")
 
         for coin in tray_collided:
             score += 1
@@ -117,12 +141,27 @@ def main():
             print(score)
             eating_sound.play()
         
+        # Spawn a cake every 500 milliseconds
+        now = pg.time.get_ticks()
+        
+        if now - last_cake > cake_cooldown:
+            cake = Cake()
 
-        if len(cake_sprites) <= 0:
-            for _ in range(NUM_CAKE):
-                cake = Cake()
-                all_sprites.add(cake)
-                cake_sprites.add(cake)
+            cake.rect.y = random.randrange(-50, 0)
+
+            all_sprites.add(cake)
+            cake_sprites.add(cake)
+
+            last_cake = now
+
+            
+
+
+        # if len(cake_sprites) <= 0:
+        #     for _ in range(NUM_CAKE):
+        #         cake = Cake()
+        #         all_sprites.add(cake)
+        #         cake_sprites.add(cake)
 
         screen.blit(background, (0, 0))
 
