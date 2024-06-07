@@ -15,7 +15,7 @@ SCREEN_SIZE = (WIDTH, HEIGHT)
 
 NUM_CAKE = 15
 
-cake_cooldown = 500 #milliseconds
+cake_cooldown = 500
 
 class Cake(pg.sprite.Sprite):
     def __init__(self):
@@ -92,25 +92,34 @@ def main():
 
     eating_sound = pg.mixer.Sound("Pygame-Project-2024/sounds/eat.mp3")
 
-    while True:
+    while not done:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 done = True
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE or event.key == pg.K_q:
+                    pg.quit()
+                    return
 
         if pg.key.get_pressed()[pg.K_SPACE]:
             break
 
         screen.blit(background, (0, 0))
 
-        start_text = font.render("Press Space to start.", True, WHITE)
+        start_text = font.render("Press Space to start!!!", True, WHITE)
+        quit_text = font.render("Press Q to quit.", True, WHITE)
 
-        screen.blit(start_text, (100, 200))
+        start_text_coords = start_text.get_width() // 2, start_text.get_height() // 2
+        quit_text_coords = quit_text.get_width() // 2, quit_text.get_height() // 2
+
+        screen.blit(start_text, (WIDTH // 2 - start_text_coords[0], HEIGHT // 2 - start_text_coords[1]))
+        screen.blit(quit_text, (WIDTH // 2 - quit_text_coords[0], HEIGHT // 2 - quit_text_coords[1] + 20))
         
         pg.display.flip()
         clock.tick(60)
 
-
-
+    done = False
+   
     while not done:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -153,15 +162,6 @@ def main():
             cake_sprites.add(cake)
 
             last_cake = now
-
-            
-
-
-        # if len(cake_sprites) <= 0:
-        #     for _ in range(NUM_CAKE):
-        #         cake = Cake()
-        #         all_sprites.add(cake)
-        #         cake_sprites.add(cake)
 
         screen.blit(background, (0, 0))
 

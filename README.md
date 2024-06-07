@@ -5,13 +5,12 @@ The final pygame project for SLSS Programming 🤠
 
 ### Instructions to Run 
 Run 'python main.py' to start
-Press enter to continue to game
-
+Press space to continue to game
+PRess Q to quit the game 
 ### Features 
-"eat.mp3" From & by Pixabay
+A sound will play when a cake touches the tray.
 
-"happy.mp3" Music by Luca Francini from Pixabay
-### Known Bugs 
-After the amount of cakes are caught, it will spawn more cakes but will spawn too fast and all at once. Cakes will only respawn when the last cake is caught. 
 
 ### Attribution 
+
+ Sound files are from https://pixabay.com
